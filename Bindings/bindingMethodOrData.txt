@@ -1,0 +1,14 @@
+Are you trying to bind a method?
+
+1. Yes:
+  - Use parentheses (...)
+  - (increase)="onIncreaseHandler()";
+    - this is passing the onIncreaseHandler method from the parent component down to the child
+  *Tip
+      - to make sure that you bound the method properly, console.log() a string in the bound method to check if it works
+2. No:
+  - Use brackets [...]
+  - [count]="count";
+    - this is passing data (object) from the parent component to the down to the child
+    *Tip
+      - to make sure that you bound the data properly, add in a console.log() with the bound data to check if it works
