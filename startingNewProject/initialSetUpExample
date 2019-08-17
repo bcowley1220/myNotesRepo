@@ -1,0 +1,32 @@
+Example Startup Sequence Quick Reference:
+1. Go to the location where you would like to place the new app file
+2. ng new nameOfNewApp
+3. ng g c nameOfComponent (repeat for each different component)
+4. ng g i interfaces/nameOfInterface (repeat for each different interface)
+5. ng serve --o 
+  -ng serve --port portNumber (if serving more than 1)
+
+Example Startup Sequence Full Reference:
+1. Go to the location where you would like to place the new app file
+  -You are placing a big ol' file in the next step, so make sure it's going in the right place
+2. ng new nameOfNewApp
+  -"ng" is shorthand for Angular
+  -"new" tells the Angular cli (command line interface) to generate a new project
+3. ng g c nameOfComponent (repeat for each different component)
+  -"g" is shorthand for generate
+  -"c" is shorthand for component
+  -repeat this process for each new component that you need for your project
+  -if you need to make parent/child components use:
+  -ng g c parentComponent/childComponent
+4. ng g i interfaces/nameOfInterface (repeat for each different interface)
+  -"i" is shorthand for interface
+  -the command above says: make a new folder named interfaces and put in a new interface.ts file of whatever name I give it.
+  -You can store all of your interfaces in the same file since you will be calling them through import
+5. ng serve --o 
+  -This command tells the angular cli to send this entire file to your browser through port 4200. 
+  -When you serve the project through your terminal/gitbash externally it will lock down that terminal. 
+  To use more commands in terminal, open a new one through your IDE.
+  -Once served, you can access this served file through http://localhost:4200/
+  -If you are serving more than one project at a time, you will need to define a different port number to serve it through
+  -ng serve --port 4201 (or any open port) will allow you to see the project in your browser
+
