@@ -1,0 +1,17 @@
+-If you'd like to try and tackle/ a topic, please make sure that you mark it in here with your name, 
+claimed date, and email; also just drop me an email @ b.cowley1220@gmail.com just incase I miss the update here. Thank you!
+
+-ex. 1. ngForm (Brendan Cowley, 8/18/19, b.cowley1220@gmail.com)
+
+1. ngForm
+2. ngModel
+3. Services
+4. Components
+5. Interface
+6. Routing
+7. Bindings
+8. ngOnInit
+9. Parameters
+10. Flexbox
+11. Grid
+12. API's
