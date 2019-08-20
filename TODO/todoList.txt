@@ -3,15 +3,32 @@ claimed date, and email; also just drop me an email @ b.cowley1220@gmail.com jus
 
 -ex. 1. ngForm (Brendan Cowley, 8/18/19, b.cowley1220@gmail.com)
 
-1. ngForm
-2. ngModel
+1. ngSomething...
+1.1 ngForm
+1.2 ngModel
+1.3 ngForm
+1.4 ngIf
+1.5 ngClass
+1.6 ngStyle
+2. Modules
+2.1 FormsModule
 3. Services
+3.1 Importing & Injecting
+3.2 Passing data to service (profileProject is good example; takes data and updates original with new object)
 4. Components
 5. Interface
 6. Routing
-7. Bindings
+7. Bindings (Methods & Data)
+7.1 Service, Parent, Child
+7.2 @Input & @Output/EventEmmiter
 8. ngOnInit
 9. Parameters
 10. Flexbox
 11. Grid
 12. API's
+13. Spread Operator
+14. slice method
+15. Object Destructuring 
+16. HTTP Requests
+17. AJAX
+18. Subscribe
