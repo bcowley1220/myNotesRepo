@@ -24,3 +24,10 @@ http
 5. When you initiate the server, it will suspend your console and run the server from the console.
 - You can check this by checking the browser @ localhost:5000 (or whatever port number you listed)
 6. To end the server, hit ctrl+c until it stops running
+
+
+Routing:
+-We want to take the same approach with components that we do with server routing.
+-The main server file needs to be as clean as possible.
+  -We do that with separating each route into its own folder
+  -we need to import express into that folder

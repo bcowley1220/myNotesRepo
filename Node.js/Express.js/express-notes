@@ -37,3 +37,18 @@ app.get("/cool", (req, res) => { // app.get("/" is creating an endpoint of local
 app.get("/mitch", (req, res) => { // app.get("/" is creating an endpoint of localhost:5000/mitch
   res.send({ name: "Mitch" });
 });
+
+Body Parser/Middleware:
+-When we know that we are using a post or put request, we have to have this right under the variables
+- app.use(express.json()); // this is called Middleware, and will allow us to check the POST method
+
+
+
+Checking Post:
+
+Postman:
+1.Dropdown from GET to POST
+2. Select body in the menu list below that section
+3. Where it says TEXT, change it to JSON (application/JSON)
+
+
