@@ -1,0 +1,25 @@
+There are a few basic rules we should follow whencreating our RESTful API.
+1. Endpoints should use plural nouns to describe URI.
+2. Do not include trailing forward slashes after theURI.
+3. Hyphens should be used rather than camel-casingURI's. This is much easier to read and manage.
+4. Underscores should never be used in URI's.
+example:
+Example from slides:
+app.get("/students") // returns a list of all students
+app.post("/students") // creates a new person
+app.put("/students/:id") // updates a specific person based on id
+app.delete("/students/:id") // deletes a specific person based on id
+
+Working Example:
+app.get("/people", (req, res) => { //get is typically used when we want to "get" data from something or somewhere
+  res.send("fill this in later");
+});
+app.post("/people", (req, res) => { //post is typically used when we want to "post/input" information to the body
+  res.send("added someone to the list");
+});
+app.put("/people/:id", (req, res) => {
+  res.send("updated someone in the list");
+});
+app.delete("/people/:id", (req, res) => {
+  res.send("deleted someone from the list");
+});
