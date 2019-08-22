@@ -1,0 +1,26 @@
+Node Server:
+1. Create file: server.js
+In server.js:
+2. let http = require('http');
+  - this pulls in the HttpModule
+3.create method:
+http.createServer((req, res) => {
+    res.writeHead(200, { "Content-type": "text/plain" });// 200 = go ahead code; rest of it says that we want this to be plain text
+    res.write("This is sent from a Node.js server"); //when we connect to our browser, it will print this string
+    res.end(); //ends the method
+  })
+-req: shorthand for request
+-res: shorthand for response
+
+
+4. attach listen() method to the end of it:
+http
+  .createServer((req, res) => {
+    res.writeHead(200, { "Content-type": "text/plain" });
+    res.write("This is sent from a Node.js server");
+    res.end();
+  })
+  .listen(5000); //! when we run the server, we do not want to use the port 4200, because it'll be used by angular
+5. When you initiate the server, it will suspend your console and run the server from the console.
+- You can check this by checking the browser @ localhost:5000 (or whatever port number you listed)
+6. To end the server, hit ctrl+c until it stops running

@@ -1,0 +1,39 @@
+NPM Init:
+-When you need to need to access the package.json file in a project:
+-In console, in project folder:
+npm init 
+  -it will prompt you to input info about the project and generate the package.json file
+
+
+Installing Express into a project once you have completed npm init:
+-in console of project folder:
+npm install Express
+
+Creating a server the Express Way:
+In server.js file:
+
+let express = require("express"); // calling express functions
+let app = express(); //what the express function returns
+app.listen(5000, () => console.log("Server running."));
+
+Creating a Dymanic Express Server:
+let express = require("express"); // calling express functions
+let app = express(); //what the express function returns
+let port = 5000;
+app.listen(port, () => console.log(`Server running on port: ${port}`));
+
+Updating Server On File Change:
+-When you make an update to the file that the server is running, you must shut it down and restart it
+in the console, unless you set it up to auto-update
+
+Setting Up Paths:
+app.get("/", (req, res) => { // app.get("/" is creating a path to show different components
+  res.send("Holy shit");
+});
+app.get("/cool", (req, res) => { // app.get("/" is creating an endpoint of localhost:5000/cool
+  res.send("Wow, node is so cool");
+});
+
+app.get("/mitch", (req, res) => { // app.get("/" is creating an endpoint of localhost:5000/mitch
+  res.send({ name: "Mitch" });
+});
