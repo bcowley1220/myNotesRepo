@@ -3,6 +3,7 @@ claimed date, and email; also just drop me an email @ b.cowley1220@gmail.com jus
 
 -ex. 1. ngForm (Brendan Cowley, 8/18/19, b.cowley1220@gmail.com)
 
+
 1. ngSomething...
 1.1 ngForm
 1.2 ngModel
@@ -32,3 +33,4 @@ claimed date, and email; also just drop me an email @ b.cowley1220@gmail.com jus
 16. HTTP Requests
 17. AJAX
 18. Subscribe
+
