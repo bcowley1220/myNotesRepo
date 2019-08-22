@@ -1,0 +1,26 @@
+Exporting Files and Functions:
+
+The following examples are from the intro to Node.js demo on 8/22/19 Wk5 D4:
+math.js:
+let add = (number1, number2) => number1 + number2;
+module.exports = add;
+
+people.js:
+let add = require("./math");
+console.log(add(10, 20));
+-Running this in node in the console it will print 30
+
+To export more than one function:
+- module.exports = [add, subtract];// you can do it as an array, but the reference in the other file is wonky.
+  - console.log(math[0](10, 20), math[1](50, 20));
+- using an object instead allows for dot notation:
+  - module.exports = { add, subtract };
+  -let math = require("./math");
+  -console.log(math.add(10, 20), math.subtract(20, 10));
+
+A Note On Parameters
+-In a function you can reference variables outside of the function, and when exported to another file it will keep its reference
+point to the original file.
+
+
+

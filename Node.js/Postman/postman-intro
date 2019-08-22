@@ -1,0 +1,5 @@
+Under the area where you can input the address:
+- it will help us build our own API so we can call and pass data back and forth
+- enter in your localhost:... and you can test your end points from express or node-server
+- You can also check API's, its own data, and how we can view it without calling it another way
+
