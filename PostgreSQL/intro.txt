@@ -1,0 +1,42 @@
+Database Query = CRUD (create, read, update, delete/destroy)
+select = Get
+insert into = Post
+update= Put
+delete = Delete/destroy
+
+
+
+Creating Table:
+1. Highlight table in pgAdmin site 
+2. Click on tools in the top bar
+3. Click on query tools
+4. In Query Editor:
+4.1 Create Table ( )
+5. F5/lightning bolt to execute
+6. Right click on the tables catagory in the left side and refresh
+6.1 This will auto-populate in the table you just made
+
+Database Query = Crud: 
+select = get (Read)
+insert into = post (Create)
+update = put (Update)
+delete = delete (delete/destroy)
+
+Selecting All items in table:
+- select * from tableName
+- ex. select name from Avengers where hero_name='Hawkeye';
+
+
+Inserting Into Table:
+- insert into tableName (propertyOne, propertyTwo) value('propertyOneValue', 'propertyTwoValue');
+- ex: insert into students (name, color) value('Brendan', 'green');
+
+Updating Table:
+- update tableName set property ='propertyValue' where id='';
+- ex: UPDATE students SET color ='blue' WHERE id='1';
+
+
+Deleting From Table:
+- delete from tableName where id=''
+- ex: DELETE FROM students WHERE id='1'
+- ex. delete from Avengers where hero_name='Black Widow';
