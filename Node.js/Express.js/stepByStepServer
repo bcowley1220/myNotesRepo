@@ -1,0 +1,284 @@
+IN SERVER FILE:
+1.Do this first to ensure the server is working: 
+let express = require("express");
+let cors = require("cors");
+let app = express();
+
+app.use(cors());
+app.use(express.json());
+let port = 8080;
+app.listen(port, () => console.log(`Server is running on PORT: ${port}.`));
+
+2.Once verified, in your terminal, do the following to auto-update the server:
+-npm install nodemon (You might not need to do this if you have installed it globally);
+-nodemon server.js 
+  - this will allow auto updating on the server
+
+3.
+let express = require("express");
+let cors = require("cors");
+let app = express();
+//Added in router
+let router = require("./routes/routes");
+app.use(cors());
+app.use(express.json());
+let port = 8080;
+app.use("/", router);
+app.listen(port, () => console.log(`Server is running on PORT: ${port}!`));
+
+4. Open Postman, test endpoints
+
+5. Create folder w/ file: connection/connection.js
+5.1 Make sure the info below is in that file before moving
+
+IN ROUTES FILE:
+1.First steps:
+let express = require("express");
+let router = express.Router();
+
+module.exports = router;
+
+2. ADD GET Request
+let express = require("express");
+let router = express.Router();
+
+//GET request was added
+router.get("/animals", (req, res) => { 
+  res.send("GET works");
+});
+
+module.exports = router;
+
+3. Same as above for server instructions step 4. Test end points in Postman.
+
+4. POST Request
+let express = require("express");
+let router = express.Router();
+
+router.get("/animals", (req, res) => {
+  res.send("GET works");
+});
+
+//ADDED POST REQUEST
+router.post("/animals", (req, res) => {
+  res.send("POST works");
+});
+
+module.exports = router;
+
+5. Test on Postman
+
+6. Added PUT & DELETE
+let express = require("express");
+let router = express.Router();
+
+router.get("/animals", (req, res) => {
+  res.send("GET works");
+});
+
+router.post("/animals", (req, res) => {
+  res.send("POST works");
+});
+
+//ADDED PUT REQUEST
+router.put("/animals/:id", (req, res) => {
+  res.send("PUT works");
+});
+
+//ADDED DELETE REQUEST
+router.delete("/animals/:id", (req, res) => {
+  res.send("DELETE works");
+});
+
+module.exports = router;
+
+7. Test put & delete in postman
+8. Create folder w/ file: connection/connection.js
+8.1 Make sure the info below is in that file before moving
+
+//////////////////////////////////////////////////////////////////
+From This point forward the content below will only be the changes
+//////////////////////////////////////////////////////////////////
+
+9.CHANGED GET to info from database
+
+  router.get("/animals", (req, res) => {
+    //Commented our original request
+    // res.send("GET works");
+    //Added this in to access the table we made in postgres
+    pool.query("select * from animals").then(result => {
+      res.send(result.rows);
+    });
+  });
+
+10. 
+  -With PG module, you can't do more than 1 thing in a request, so we're making a function to get around that.
+  -Take out the query from the get request and shove it in this function. 
+  -Insert the function into the get method.
+  -We need to make sure that we are calling the response in the function and in the get method
+
+  //This was added
+  function selectAllAnimals(req, res){
+    pool.query("select * from animals").then(result => {
+      res.send(result.rows);
+    });
+  }
+
+  //This was altered
+  router.get("/animals", selectAllAnimals);
+  });
+10.1
+  - This is a less efficient way to do this, but it'll work.
+
+  function selectAllAnimals(res){
+    pool.query("select * from animals order by id").then(result => {
+      res.send(result.rows);
+    });
+  }
+  router.get("/animals", (req, res) => {
+    // res.send("GET works");
+    selectAllAnimals(res);
+  });
+
+11. POST Request
+  -The second value to the query method IS ALWAYS AN ARRAY!
+
+  router.post("/animals", (req, res) => {
+    pool
+      .query(
+        "insert into animals (name, animal_type, color, age, owner, breed, cuteness) values ($1::text, $2::text, $3::text, $4::int, $5::text, $6::text, $7::int)",
+        [
+          req.body.name,
+          req.body.animal_type,
+          req.body.color,
+          req.body.age,
+          req.body.owner,
+          req.body.breed,
+          req.body.cuteness
+        ]
+      )
+      .then(() => {
+        selectAllAnimals(req, res);
+      });
+  });
+
+
+12. DELETE Request
+
+  router.delete("/animals/:id", (req, res) => {
+    pool
+      .query("delete from animals where id=$1::int", [req.params.id])
+      .then(() => {
+        selectAllAnimals(req, res);
+      });
+  });
+
+13. PUT Request 
+  router.put("/animals/:id", (req, res) => {
+  pool
+    .query(
+      "update animals set name=$1::text, animal_type=$2::text, color=$3::text, age=$4::int, owner=$5::text, breed=$6::text, cuteness=$7::int where id=$8::int",
+      [
+        req.body.name,
+        req.body.animal_type,
+        req.body.color,
+        req.body.age,
+        req.body.owner,
+        req.body.breed,
+        req.body.cuteness,
+        req.params.id
+      ]
+    )
+    .then(() => {
+      selectAllAnimals(req, res);
+    });
+  });
+
+
+POSTMAN TESTING:
+  1. get request localhost:8080/animals
+  1.1 Display: GET works
+  2. post request localhost:8080/animals
+  2.1 Displays: POST works
+  3. put request localhost:8080/animals/1
+  3.1 Displays: PUT works
+  4. delete request localhost:8080/animals/1
+  4.1 Displays: DELETE request
+
+CONNECTION.JS:
+  1. Set this up in this file. This will allow us to talk to our database
+  let { Pool } = require("pg");
+  let credentials = new Pool({
+    user: "postgres",
+    password: "Seamus@14",
+    host: "localhost",
+    port: 5432,
+    database: "postgres",
+    ssl: false
+  });
+
+  module.exports = credentials;
+
+
+
+  WHOLE Routes.js file:
+  let express = require("express");
+  let router = express.Router();
+  let pool = require("../connection/connection");
+
+  function selectAllAnimals(req, res) {
+    pool.query("select * from animals order by id").then(result => {
+      res.send(result.rows);
+    });
+  }
+
+  router.get("/animals", selectAllAnimals);
+
+  router.post("/animals", (req, res) => {
+    pool
+      .query(
+        "insert into animals (name, animal_type, color, age, owner, breed, cuteness) values ($1::text, $2::text, $3::text, $4::int, $5::text, $6::text, $7::int)",
+        [
+          req.body.name,
+          req.body.animal_type,
+          req.body.color,
+          req.body.age,
+          req.body.owner,
+          req.body.breed,
+          req.body.cuteness
+        ]
+      )
+      .then(() => {
+        selectAllAnimals(req, res);
+      });
+  });
+
+  router.put("/animals/:id", (req, res) => {
+    pool
+      .query(
+        "update animals set name=$1::text, animal_type=$2::text, color=$3::text, age=$4::int, owner=$5::text, breed=$6::text, cuteness=$7::int where id=$8::int",
+        [
+          req.body.name,
+          req.body.animal_type,
+          req.body.color,
+          req.body.age,
+          req.body.owner,
+          req.body.breed,
+          req.body.cuteness,
+          req.params.id
+        ]
+      )
+      .then(() => {
+        selectAllAnimals(req, res);
+      });
+  });
+
+  router.delete("/animals/:id", (req, res) => {
+    pool
+      .query("delete from animals where id=$1::int", [req.params.id])
+      .then(() => {
+        selectAllAnimals(req, res);
+      });
+  });
+
+  module.exports = router;

@@ -1,0 +1,9 @@
+Creating Table:
+1. Highlight table in pgAdmin site 
+2. Click on tools in the top bar
+3. Click on query tools
+4. In Query Editor:
+4.1 Create Table ( )
+5. F5/lightning bolt to execute
+6. Right click on the tables catagory in the left side and refresh
+6.1 This will auto-populate in the table you just made
