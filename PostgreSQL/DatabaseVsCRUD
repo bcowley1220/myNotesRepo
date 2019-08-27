@@ -1,0 +1,5 @@
+Database Query = CRUD (create, read, update, delete/destroy)
+select = Get
+insert into = Post
+update= Put
+delete = Delete/destroy

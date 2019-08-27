@@ -1,0 +1,26 @@
+
+Default Join:
+ex: 
+  SELECT * FROM Student (get all the data from Student Table)
+  JOIN Class ON Student.class_id = Class.id (join all of the class rows into student table, only if the student id is matching the class id)
+
+Inner Join:
+-Where both tables match:
+  SELECT * FROM Student
+  INNER JOIN Class ON Student.class_id = Class.id
+
+Left Join:
+-Takes the left table, and merges everything from the right into it, even if it doesn't match
+  SELECT * FROM Student
+  LEFT JOIN Class ON Student.class_id = Class.id
+
+
+Right Join:
+-Same process as left join, but takes the right table and merges everything from the left into it
+
+
+Full Join:
+-Takes both tables and brings them together, regardless if the table contents match together.
+  SELECT * FROM Student
+  FULL JOIN Class ON Student.class_id = Class.id
+
