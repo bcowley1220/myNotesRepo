@@ -1,3 +1,8 @@
+Don't Forget:
+- npm init
+- npm install express cors
+
+
 IN SERVER FILE:
   1.Do this first to ensure the server is working: 
   let express = require("express");
