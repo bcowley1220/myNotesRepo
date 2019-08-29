@@ -1,0 +1,67 @@
+1. import functionality and module
+1.1 services, modules, etc.
+2. set up service methods
+2.1 get, post, put, delete methods
+2.2 get method: 
+getAnimals(): Observable<any> {
+    this.http.get("localhost:8080/animals");
+  }
+3. IN SERVICE:
+  -We are doing this step to make sure that we are accessing the information we want
+ngOnInit() {
+    this.animalsService.getAnimals().subscribe(response => {
+      console.log(response);
+    });
+  }
+4. ONCE VERIFIED:
+-Make sure that you add in a holder variable! We are using animalList: any[];
+export class AnimalsComponent implements OnInit {
+  animalList: any[];
+  constructor(private animalsService: AnimalsService) {}
+
+  ngOnInit() {
+    this.animalsService.getAnimals().subscribe(response => {
+      this.animalList = response;
+    });
+  }
+}
+5. IN ANIMALS.COMPONENT.HTML
+<div *ngFor="let animal of animalList">
+  <p>Name: {{ animal.name }}</p>
+  <p>Type: {{ animal.animal_type }}</p>
+  <p>Owner: {{ animal.owner }}</p>
+  <button (click)="deleteAnimal(animal.id)">Delete</button>
+</div>
+5.1 VERIFY SUCCESS IN BROWSER
+6. IN ANIMALS.COMPONENT.TS
+  deleteAnimal(id: number): void {
+    this.animalsService.deleteAnimals(id).subscribe(response => {
+      this.animalList = response;
+    });
+  }
+7. IN SERVICE
+  deleteAnimals(id: number): Observable<any> {
+    return this.http.delete(`http://localhost:8080/animals/${id}`);
+  }
+8. IN COMPONENT.HTML
+  <form #animalForm="ngForm" (ngSubmit)="addAnimal(animalForm)">
+  <input type="text" name="name" ngModel placeholder="name" />
+  <input type="text" name="animal_type" ngModel placeholder="animal type" />
+  <input type="text" name="color" ngModel placeholder="color" />
+  <input type="number" name="age" ngModel placeholder="age" />
+  <input type="text" name="owner" ngModel placeholder="owner" />
+  <input type="text" name="breed" ngModel placeholder="breed" />
+  <input type="number" name="cuteness" ngModel placeholder="cuteness" />
+  <button>Add Animal</button>
+  </form>
+9. IN COMPONENT.TS  
+  addAnimal(form: NgForm): void{
+    this.animalsService.postAnimals(form.value).subscribe(response => {
+      this.animalList = response;
+  })};
+10. IN SERVICE
+- newAnimal will be the new animal that is being passed from the form, to the component, to the service;
+  postAnimals(newAnimal: object): Observable<any> {
+    return this.http.post('http://localhost:8080/animals', newAnimal)
+  }
+11. TEST IN BROWSER!!!!!

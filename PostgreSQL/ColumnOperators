@@ -11,7 +11,7 @@ Selecting All items in table:
 
 Inserting Into Table:
 - insert into tableName (propertyOne, propertyTwo) value('propertyOneValue', 'propertyTwoValue');
-- ex: insert into students (name, color) value('Brendan', 'green');
+- ex: insert into students (name, color) values('Brendan', 'green');
 
 Updating Table:
 - update tableName set property ='propertyValue' where id='';
