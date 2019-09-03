@@ -1,0 +1,17 @@
+<h1>Results</h1>
+
+<div id="resultsContainer">
+  <section id="scoreContainer">
+    <div class="currentScore">
+      <h2>Current Score</h2>
+      <h2>{{ score }}/10</h2>
+      <button (click)="navigateToScores()">High Scores</button>
+    </div>
+  </section>
+</div>
+<div class="wrapper">
+  <div *ngFor="let question of questions" class="card">
+    <p>{{ question.question_name }}</p>
+    <p>Answer: {{ question.answer }}</p>
+  </div>
+</div>
