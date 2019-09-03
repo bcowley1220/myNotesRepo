@@ -16,7 +16,7 @@ let express = require("express"); // calling express functions
 let app = express(); //what the express function returns
 app.listen(5000, () => console.log("Server running."));
 
-Creating a Dymanic Express Server:
+Creating a Dymanic Express Server:  
 let express = require("express"); // calling express functions
 let app = express(); //what the express function returns
 let port = 5000;
@@ -28,7 +28,7 @@ in the console, unless you set it up to auto-update
 
 Setting Up Paths:
 app.get("/", (req, res) => { // app.get("/" is creating a path to show different components
-  res.send("Holy shit");
+  res.send("Holy shit"); 
 });
 app.get("/cool", (req, res) => { // app.get("/" is creating an endpoint of localhost:5000/cool
   res.send("Wow, node is so cool");
