@@ -1,0 +1,186 @@
+GC Slides:
+- https://lms.grandcircus.co/pluginfile.php/11230/mod_resource/content/0/Front-End%20-%20Hosting%20With%20Heroku.pdf
+
+Once Heroku is installed and verified in git bash with:
+- heroku --version
+
+1. IN git bash:
+- heroku login
+  - use the prompts, it will pop open the browser and verify your login
+
+2. In the server folder of your app; create with console:
+- touch Procfile
+
+3. In the Procfile:
+- web: node server.js
+
+4. Create with console:
+- touch app.json
+
+5. In app.json file:
+- { "name": "demo", "description": "this is crazy", "image": "heroku/nodejs" }
+  - you can change the values to whatever the project is
+  - HOWEVER: the image  has to be "image": "heroku/nodejs"
+
+6. In the server.js file:
+-let port = process.env.PORT || 8080;
+  - You are adding in the process.env.PORT ||
+
+7. In server.js file add the following above the other use statements:
+- app.use(express.static(__dirname + "/dist"));
+
+8. In package.json add this to the bottom with a coma:
+- "engines": { "node": "10.15.3", "npm": "6.9.0" }
+  - example:
+  {
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "nodemon": "^1.19.1",
+    "pg": "^7.12.1"
+  },
+  "engines": {
+    "node": "10.15.3",
+    "npm": "6.9.0"
+  }
+}
+
+9. In package.json, add this to the end of the dependencies section:
+- "@angular/cli": "~7.3.9"
+
+10. ///////////////////////////////
+IN ANGULAR APP:
+11. In package.json file, insert the following into the end of the dependencies:
+- "@angular/cli": "~7.3.9",
+
+12. In package.json file, replace the entire scripts section with the following:
+- "scripts": {
+    "ng": "ng",
+    "start": "node server.js",
+    "serve": "ng serve",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e",
+    "heroku-postbuild": "ng build --aot --prod"
+  },
+
+13. In angular.json, make sure that the outputPath only says the following:
+- "outputPath": "dist",
+
+14. In package.json in angular file under the dependencies add the following:
+ -  "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "nodemon": "^1.19.1",
+    "pg": "^7.12.1"
+
+15. In package.json file in angular add the following right after the scripts object
+  -"engines": { "node": "10.15.3", "npm": "6.9.0" },
+14. /////////////////////////////////////////
+- Close all vs codes that are running these files, and their terminal windows.
+
+15. 
+- Move the following folders/files into the frontEnd folder:
+A. connection
+B. Routes
+C. server.js
+D. Procfile 
+E. app.json
+
+16. in git bash, remove any git tracking:
+  -rm -rf .git
+
+17. in git bash,  verify with git status that there is no tracking
+
+18. in git bash, git add .
+19. in git bash, git commit -m 'first commit for heroku'
+
+20. in git bash:
+- heroku create name-of-project
+
+21. in git bash:
+  - git push heroku master
+
+TROUBLESHOOTING WITH HEROKU:
+- Can check the website in your profile to double check the site
+- Can also check the logs in terminal with the following command:
+  - heroku logs
+
+
+
+When things are finally up and running:
+1. In the angular service component:
+  - delete the url part of the REST requests, leaving just the /whateverEndPointIsCalled
+  - save
+
+2. Go to Heroku's website, and find your project. Go to the resource tab and under the addons start 
+typing in postgres, and select heroku postgres.
+
+3. Click on heroku postgres
+
+4. Click setting, view database credentials
+
+5. In connection.js, replace everything in that file with the following:
+  - const pg = require("pg");
+    const url = require("url");
+    try {require("dotenv").config();
+    } catch (e) {console.log(e);
+    }const params = url.parse(process.env.DATABASE_URL);
+    const auth = params.auth.split(":");
+    const config = {user: auth[0],password: auth[1],host: params.hostname,port: params.port,database: params.pathname.split("/")[1],ssl: params.hostname !== "localhost"};module.exports = new pg.Pool(config);
+
+6. In git bash:
+- npm install dotenv --save-dev
+
+7. In git bash:
+  - touch .env
+
+8. In .evn file add the URI field from the heroku postgres section we opened earlier
+  - This is passing through the proper credentials
+  - ex. postgres://lzstxkkzdjepog:cfa3caa1060e11b57d9fd796e9bca8387fb13d37c21781cb2214d0a27065d2b4@ec2-107-21-216-112.compute-1.amazonaws.com:5432/div6kst7c38l6
+
+9. in .gitignore add .env 
+
+///////////////////
+10. in pgAdmin (this step allows us to import this table back into another project later if we so choose)
+- find table, right click on import/exports
+- navigate to the project folder
+- make file name at the end of the path and submit
+
+11. open query tools test with:
+  - select * from public.whateverTheNameOfTheDatabaseIs
+
+12. postgres:
+- create new server with right clicking on the server tab and selecting create
+- name it under the general tab
+- use the info from Heroku website to fill in host, database, username, and password
+- find your database under the big ass list of databases
+
+13. Create new table in the heroku database
+
+14. right click on table after created, go to import/export
+
+15. switch to importing data on the top
+16. click the ... and find the file that we exported earlier
+  - This will import in the rows from the previous file
+  - If we didn't build out the first file it wouldn't have anything to build off of.
+
+17. git add, git commit, git push heroku master
+18. We should now see the right stuff in our front end... if it's all properly hooked up
+
+
+
+
+
+
