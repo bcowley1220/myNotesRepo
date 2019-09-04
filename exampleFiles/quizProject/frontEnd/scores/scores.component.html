@@ -1,0 +1,9 @@
+<h1>High Scores!</h1>
+<div class="wrapper">
+  <ol class="wrapper">
+    <li *ngFor="let score of scores" class="card">
+      <p>Name: {{ score.user_name }}</p>
+      <p>Score: {{ score.score }}</p>
+    </li>
+  </ol>
+</div>
