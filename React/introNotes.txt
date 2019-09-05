@@ -1,0 +1,126 @@
+Review of code takeaways:
+  - <div id="root"></div> (we'll come back to why this is important)
+  
+  - We won't be altering index.html mostly, just like Angular
+ 
+  - the src folder will be holding most of the important files just like Angular
+  
+  - app.css will contain styles for the app component
+  
+  - app.js will be look very similar to Angular
+    - we will still need to do import and and export, but the only purpose of this to hold the component
+  
+  - React will come with Jest unit testing 
+  
+  - index.js will mainly deal wih redux, however:
+    
+  - there will be a method in there that will find us the id="root" and insert the app component into the desired element
+  
+  - React will mostly use vanilla JS, but can use TypeScript
+  
+  -components:
+    - still importing useful things in at the top
+    - there is no *ngFor in React, so we have to use the .map method
+    - binding parent to child: still works in the same vein, but you do not need to use the @Input or @Output decorators
+    - you are passing the "state" down, not just data
+  -Most functions in React will be written in arrow functions
+
+  Ternary operator:
+    - they will behave differently than in Angular... read about later
+      - https://reactjs.org/docs/conditional-rendering.html
+  
+  Action words
+  - https://redux.js.org/basics/actions
+
+!!!!!!!!!!!!!
+  - All React is allowing us to do is to create components and display components
+
+TO CREATE A NEW REACT APP:
+- npx create-react-app nameOfApp
+
+Yarn
+  - is a package management system just like nameOfApp
+  - you can use either npm or yarn
+  - https://www.google.com/search?client=firefox-b-1-d&q=yarn+vs+npm
+
+Component Based Architecture:
+
+  - State: app's data
+    - The only time we will ever change state in React is using a method purposely changing into
+    - State only travels one way (uni-directional), parent to child
+    - https://reactjs.org/docs/state-and-lifecycle.html
+    - We need to make sure that we import {useState} at the top of the app to access this method
+  - Props: data passed to children
+
+Serving React App:
+  - npm start
+  - if it tosses an error, in the index.js file, at the bottom change the following: change serviceWorker.register();
+    - change serviceWorker.register()
+
+Returning:
+  - When we want to return a big chunk of data in react:
+    - the return value should be wrapped in a ()
+    - the info needs to be wrapped in a div that should define the App
+
+JSX:
+  - a variation of JavaScript
+  - https://reactjs.org/docs/introducing-jsx.html
+
+React Linter:
+  - there is a prebuilt linter (checker) in React that will alert us of issues either in console or in dev tools
+
+
+Setting state:
+Refer to working file to see state change method
+
+Making New Components:
+  - Has to be done manually in folder structure
+
+Exporting Out Component:
+  - at bottom of component file:
+    - export default nameOfComponent;
+
+Importing Component:
+  - in the import section of the desired component:
+    - import nameOfComponent from "./components/nameOfComponent";
+
+Binding Data From Parent To Child:
+  - <Info name={myInfo.name} age={myInfo.age}></Info>
+    - This is the long way to pass data
+  - <Info myInfo={myInfo} changeInfo={handleClick}></Info>
+
+Passing Methods:
+
+  Parent:
+    -<Info myInfo={myInfo} changeInfo={handleClick}></Info>
+  Child:  
+    - <button onClick={changeInfo}>Change Date</button>
+    - can also be written as:
+     -   <button
+        onClick={() => {
+          changeInfo();
+        }}
+      >
+        Change Date
+      </button>
+
+Importing useState:
+  - import React, { useState } from "react";
+  - You can not wrap React in curly brackets
+
+  //!Setting state:
+  // let [myName, setMyName] = useState("Brendan"); //!These 2 lines below work, but are the long way
+  // let [myAge, setMyAge] = useState(32);
+  // console.log(myName.name, myAge.age);
+  //!This line below is creating a variable so we can access the data with dot notation
+
+
+3 Golden Rules:
+1. Do not mess with the DOM
+2. Use components (break up code into the smallest parts possible)
+3. State only flows down (unidirectional) from parent to child
+
+Two Elements in Return:
+  - If you have two elements next to each other in a return statement, you must wrap them in a div wrapper
+
+

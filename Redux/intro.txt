@@ -1,0 +1,77 @@
+https://redux.js.org/introduction/getting-started
+
+Installing:
+  - npm install redux react-redux
+  - npm install redux-devtools --save-dev
+
+Redux:
+  - "Single Source Of Truth"
+  Golden Rules of Redux
+  1. You will have one single data store that will contain all state of app
+  2. Anything that is defined in the data store is defined as read-only
+  3. Changes are made with pure functions
+    - Any time we change state, it has to be with a pure function, which returns us a new state
+
+To Use Redux:
+  - Need to create actions and reducers
+  - Create in src:
+    1. actions folder
+    2. reducers folder
+  - in Index.js:
+    - import { Provider } from "react-redux";
+      import { createStore } from "redux";
+      import rootReducer from "./reducers/reducers";
+    - under the import section: this allows App and it's children to use the store
+      - let store =  createStore(rootReducer);
+      - ReactDOM.render(
+          <Provider store={store}>
+            <App></App>
+          </Provider>
+        );
+
+
+//////////////////////////////////////
+The following section isn't clear enough to write notes, will have to come back later and redfine
+//////////////////////////////////////
+
+
+  - Building the reducers:
+    - in reducers.js  
+    - You need to define the data that is supposed to be stored
+
+
+        This action will run every time we dispact an action
+        - let rootReducer = (state = state, action) => {
+        switch (action.type) {
+          case "UPDATE_MY_INFO":
+            console.log(action);
+            return state;
+          default:
+            return state;
+        }
+      };
+
+  - Building the actions:
+    - in actions.js
+      - export let updateMyInfo = payload => {
+          return {
+            type: "UPDATE_MY_INFO",
+            payload
+          };
+        };
+
+  - Importing into App.js
+    - import { updateMyInfo } from "./actions/actions";
+      import { useDispatch, useSelector } from "react-redux";
+    - the following needs to be set up above the return:
+      -   let dispatch = useDispatch();
+          dispatch(updateMyInfo("THIS IS DATA FROM APP")); //THIS WILL BE THE PAYLOAD
+          let handleUpdate = event => {
+            setMyInfo(event);
+          };
+
+  - Dispatch
+    - https://redux.js.org/basics/store
+
+  - useSelector
+    - is a function that allows us to use a function the data store
