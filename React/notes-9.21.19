@@ -1,0 +1,13 @@
+JSX:
+  - Syntax extenstion of JavaScript
+  - Rendering JSX to the ReactDOM:
+    - const JSX = (
+    <div>
+      <h1>Hello World</h1>
+      <p>Lets render this to the DOM</p>
+    </div>
+    );
+    // change code below this line
+    ReactDOM.render(JSX, document.getElementById('challenge-node'));
+    -ReactDOM.render's first parameter is the object or thing to be displayed,
+      the second paramenter is where to show it.
