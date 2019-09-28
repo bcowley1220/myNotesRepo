@@ -1,0 +1,49 @@
+- XAMPP controller for our server & database (enable server and database)
+- Localhost/nameOfFolderInXamppHtDocsFolder to see the file in browser
+- Unlike JS, you will have to use ; at the end of our lines our it will throw errors.
+
+PHP Tag
+- <?php?>
+  -ex. <?php
+        echo "Hello World!"
+
+        ?>
+  - echo is faster than print
+
+Creating variables
+- $variableName = 'Brendan';
+  - echo $name
+    - when we call variables we have to use the $
+- When we want to have a variable and a string in the same line, we have to use a separator
+  - echo $name.'this is the example string';
+    - we need to use a period . to separate them
+
+Input
+- method: passing information somewhere on the same document
+- action: is when we want to send that info to another document
+
+<form method="GET"> //notice the method="GET"
+<label for="person"></label>
+<input type="text" name="person" id="">
+<button>Submit</button>
+</form>
+<?php 
+  echo 'Hi There ';
+  $name = $_GET['person']; // this variable is now set to the result of the GET method in the form
+  print $name.' is a cool guy';
+  echo 10 / 2;
+?>
+
+Comments in PHP:
+- // will comment out a single line
+- /* will comment out everything below the line, */ will close it
+  - /* */
+
+Functions:
+- Inherit Functions
+  - strlen('somestring') will count the length of the string including spaces
+  - str_word_count('some example string') will count the words in the string
+  - strrev('Say Hi') will reverse the string
+  - strpos('Say Hi', 'Hi') will show the starting position of the search parameter at in the 2nd position
+  - str_replace('Brendan', 'Seamus', 'Hi Brendan') will allow us to replace a part of a string.
+    - the first parameter is the placement point, the second is the desired placement, the third is where to place it

@@ -1,5 +1,9 @@
 JSX:
   - Syntax extenstion of JavaScript
+    - Any JSX element can be written as a self closing tag
+    - ex. <p />
+  - We'll have to use camelCase for naming in JSX 
+    - ex. onclick = onClick; onchange = onChange
   - Rendering JSX to the ReactDOM:
     - const JSX = (
     <div>
@@ -10,4 +14,82 @@ JSX:
     // change code below this line
     ReactDOM.render(JSX, document.getElementById('challenge-node'));
     -ReactDOM.render's first parameter is the object or thing to be displayed,
-      the second paramenter is where to show it.
+      the second parameter is where to show it.
+
+  - JS class vs. JSX className
+    - class is a reserved word in JS, so we have to use className in JSX.
+  
+  - Creating Components
+    1. Stateless Functional Component
+      - can receive and render data, but doesn't manage or track changes to that data.
+      - React requires function names to be capitalized
+      - ex.
+        const MyComponent = function() {
+          return (
+            <div>Lets test some stuff</div>
+          )
+        }
+    2. React.Component
+      - extending React.Component gives the class access to things such as state and lifecycle hooks.
+      - notice that this has a constructor, and super().
+        - it uses super to call the constructor from the parent component.
+        - it is best practice when creating a component to call it's constructor and super with parameters of props to both.
+        - this makes sure that the component is initialized properly.
+      - ex.
+        class Kitten extends React.Component {
+          constructor(props) {
+            super(props);
+          }
+          render() {
+            return (
+              <h1>Hi</h1>
+            );
+          }
+        }
+  - Combining the two together
+    - We will need a ParentComponent to call/bind the child component and display it.
+    - The following example has a function component defined with an arrow function, and a parent component defined using
+      React.Component.
+    - When we want to call the child component in the parent, we use a self closing tag to pull it in.
+      - ex.
+        const ChildComponent = () => {
+          return (
+            <div>
+              <p>I am the child</p>
+            </div>
+          );
+        };
+
+        class ParentComponent extends React.Component {
+          constructor(props) {
+            super(props);
+          }
+          render() {
+            return (
+              <div>
+                <h1>I am the parent</h1>
+                <ChildComponent />
+              </div>
+            );
+          }
+        };
+
+  - JSX & React Components w/ ReactDOM.render()
+    - React components are passed into ReactDOM.render() a little differently than JSX elements. 
+    For JSX elements, you pass in the name of the element that you want to render. However, for React components,
+    you need to use the same syntax as if you were rendering a nested component, for example 
+    ReactDOM.render(<ComponentToRender />, targetNode). You use this syntax for both ES6 class components and functional components.
+
+    My Very First Component:
+    class MyComponent extends React.Component{
+    constructor(props){
+        super(props);
+    }
+    render(){
+    return (
+        <div>
+            <h1>My First React Component!</h1>
+        </div>
+        )}
+    };
+    ReactDOM.render(<MyComponent />, document.getElementById('challenge-node'))
