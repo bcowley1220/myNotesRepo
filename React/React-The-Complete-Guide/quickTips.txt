@@ -1,0 +1,10 @@
+- props.children
+  -  When referencing a component, and you pass something in the middle of the open/close tags like so:
+    <Person name="Seamus" age="4">
+      My Favorite Hobby is: watching TV
+    </Person>
+
+    In the component that's being call, you must use props.children as a reference point if you want that information to show up:
+    <p>{props.children}</p>
+      - You can pass more information along than is needed, but you can't reference props.children without meeting the requirements
+
