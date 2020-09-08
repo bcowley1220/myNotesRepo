@@ -8,3 +8,21 @@
     <p>{props.children}</p>
       - You can pass more information along than is needed, but you can't reference props.children without meeting the requirements
 
+- state property is only available in a class based component that is extended from component
+  - This allows us to access the props like so:
+  state = {
+    persons: [
+      {name: 'Brendan', age: 33},
+      {name: 'Amy', age: 35},
+      {name: 'Seamus', age: 4},
+    ]
+  }
+
+  <Person name={this.state.persons[0].name} age={this.state.persons[0].age} />
+  <Person name={this.state.persons[1].name} age={this.state.persons[1].age} />
+  <Person name={this.state.persons[2].name} age={this.state.persons[2].age}>
+
+- If you want to use react hooks, you don't have to use class based components... you can just right them out functionally
+
+
+
