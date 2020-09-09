@@ -1,0 +1,45 @@
+Creating A New Functional Component
+
+import React from 'react';
+
+const person = () => {
+  return <p>I'm a Perosn!</p>
+}
+
+export default person;
+
+- This can be called imported into a component using: 
+  import Person from 'Person.js';
+
+Dynamic JSX content:
+  - To use dynamic content in JSX, whatever you're going to use needs to be wrapped in single curly brackets.
+  - return <p>I'm a Person and I am {Math.floor(Math.random() * 30)} years old!</p>
+  - could also call a function
+
+Calling Props (Passing Dynamic Content To Component):
+  - In the component where you want the data to go, you have to call props in the parameters when the component is declared
+  - const person = (props) => {
+      return <p>I'm {props.name} and I am {props.age} years old!</p>
+    }
+
+Putting Something In-between Open/Close HTMl tags:
+  - <Person name='Amy' age='36'>My Hobbies: Racing</Person>
+  - For this to render properly we'll need to use what is called the children prop.
+  - <p>{props.children}</p>
+
+Creating State in an class extended Component:
+  - To declare state, you must declare a variable, give it the value of an object -> key value pair holding and array -> and objects at each array index
+  - state = {
+    persons: [
+      {name: 'Brendan', age:34 },
+      {name: 'Amy', age: 36},
+      {name: 'Seamus', age: 5}
+    ]
+  }
+
+Click Event Listeners:
+  - When you are assigning a click event to a button (for example), you have to use onClick instead of onclick... it won't work if you use the latter.
+  - switchNameHandler = () => {
+      console.log('clicked');
+    }
+  - Don't add the () to the end of the function, or React will fire that function immediately on page load.
