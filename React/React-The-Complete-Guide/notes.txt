@@ -43,3 +43,263 @@ Click Event Listeners:
       console.log('clicked');
     }
   - Don't add the () to the end of the function, or React will fire that function immediately on page load.
+
+How to Dynamically Alter State:
+  - Use this.setState
+  - switchNameHandler = () => {
+    // this.state.persons[0].name = 'B'; // Don't do this!
+    this.setState({persons: [
+      {name: 'B', age:34 },
+      {name: 'A', age: 36},
+      {name: 'S', age: 5}
+    ]})
+  }
+  - Using this method it gives us encapsulation, allowing us to maintain the original state of the app but getting the changes that we need.
+
+Updating the DOM:
+  - There are only two ways to update the DOM in React:
+    1. Change state
+    2. Props
+
+useState:
+  - One of the most important methods within a functional component. It allows us to use state management without having to do it the class way. 
+*!- When you are using hooks, you are REPLACING the previous state, not updating it like you are when using classes
+  - So you'll have to make sure that when you need to take the entire state with you to the next iteration you'll have to update it manually.
+
+Stateful Component:
+  - A component that manages state, either through hooks or throught the class based methods
+  - They are also called smart/container components because they contain the state management
+  - Limit the amount of stateful components to decrease complexity and make it obvious where the flow of data is for your app. 
+    - If every component manages it's own state, it would be extremely complex to manage across a large application
+
+Stateless Component:
+  - A component that doesn't have any internal state management
+  - They are also called dumb/presentational/view components
+    - They only show/output data
+  - It is a good idea to use as many as these as possible
+
+         
+Passing Methods as Props:
+  - You can send a class method over through props to make it available to the child component
+  - Parent Component:
+    <Person 
+          name={this.state.persons[1].name} 
+          age={this.state.persons[1].age}
+          click={this.switchNameHandler}>My Hobbies: Racing</Person>
+  - Child Component:
+    <p onClick={props.click}> I'm {props.name} and I am {props.age} years old!</p>
+  
+  - This is a common design pattern used in React
+
+Passing Parameters To Component:
+  - You can pass a parameter to a child component using the .bind() method
+  - Below we are referencing "this", which is refering to this.setState, and a value for newName to hold
+  - switchNameHandler = (newName) => {
+    // this.state.persons[0].name = 'B'; // Don't do this!
+    this.setState({persons: [
+      {name: newName, age:34 },
+      {name: 'A', age: 36},
+      {name: 'S', age: 5}
+    ]})
+  }
+  - This is the preferred way to do this over the anonymous arrow function in the handler below
+
+  <button onClick={this.switchNameHandler.bind(this, 'BC')}>Switch Name</button>
+
+Executing Arrow Funcs In OnClick Handler To Pass Params To Child:
+  - We can also call an anonymous arrow function and pass it a param to update the child that way
+  - <button onClick={() => this.switchNameHandler('Bren!')}>Switch Name</button>
+  - It's anonymous because it doesn't have a function name or a variable that holds it
+  - This isn't the best way to do this, React could end up re-rendering the component too often
+
+Using An OnChange Handler:
+  - Using an onChanged handler is just like using it in vanilla, but we need to pass the reference to the event from the parent to the child
+  - The Parent:
+   nameChangedHandler = event => {
+    this.setState({persons: [
+      {name: 'Brendan', age:34 },
+      {name: event.target.value, age: 36},
+      {name: 'Seamus', age: 5}
+    ]})
+  }
+  <Person 
+    name={this.state.persons[1].name} 
+    age={this.state.persons[1].age}
+    click={this.switchNameHandler.bind(this, 'B!')}
+    changed={this.nameChangedHandler}
+    >
+  - The Child:
+    <input type="text" onChange={props.changed}/>
+
+Two Way Data Binding:
+  - If we want to automatically reflect the value that we're holding in state for an input field, we need to do the following.
+  - Side note, the console will chuck a warning about providing a value without an onChange handler... disregard for now
+  - Child Component:
+    <input type="text" onChange={props.changed} value={props.name}/>
+  - Just like we do in Svelte, we are referencing the value that is being held by an object, and it's being inserted into the "DOM"
+  - There will be better ways to do this, haven't gotten there yet
+
+CSS In A React App:
+  -  While we could just throw our stylings into App.css, they won't be encapsulated to that component.
+  - So we can import a stylesheet into the component's JS file. While this doesn't work in normal JS, it does in React.
+  - We can also throw in a style object into the component under the render tag through the in-line method:
+    const style = {
+      backgroundColor: 'white',
+      font: "inherit",
+      border: 'solid 1px blue',
+      padding: '8px'
+    }
+  -This is not a css object, it is a JS object so you have to make sure that you're wrapping your values in strings or it will try and associate the values with variables
+  
+  - You then reference the those styles like so:
+    <button 
+      style={style}
+      onClick={() => this.switchNameHandler('Bren!')}>Switch Name</button>
+
+Visibility Functionality Within React Method 1:
+  - There are not directives in React like there are in Angular or Vue. In Angular ng-if would do visibility on an element, but we can't do that because it's mostly JavaScript.
+  - We can't use a more complex conditional like an if statement, but CAN use a ternary statement.
+  - One thing to note, if successful it runs the react.createElement method on the html below
+  - We declare a new node in the state object:
+      state = {
+      persons: [
+        {name: 'Brendan', age:34 },
+        {name: 'Amy', age: 36},
+        {name: 'Seamus', age: 5}
+      ],
+      otherState: 'some other state',
+      showPersons: false //--> this is the new node
+    }
+
+    Let's create a new event handler:
+    togglePersonsHandler = () => {
+      const doesShow = this.state.showPersons;
+      this.setState({showPersons: !doesShow});
+    }
+
+    Let's now right our ternary conditional:
+    { this.state.showPersons ? 
+
+      <div >
+        <Person 
+          name={this.state.persons[0].name} 
+          age={this.state.persons[0].age} />
+        <Person 
+          name={this.state.persons[1].name} 
+          age={this.state.persons[1].age}
+          click={this.switchNameHandler.bind(this, 'B!')}
+          changed={this.nameChangedHandler}
+          >
+          My Hobbies: Racing
+        </Person>
+        <Person name={this.state.persons[2].name} age={this.state.persons[2].age}/>
+      </div> : null
+        
+    }
+
+Visibility Functionality Within React Method 2:
+  - This is the preferred method to do conditional visibility! ***********
+  - Above the return method but inside of the render function, we'll put in the following code.
+  - We are declaring a new variable, then writing a conditional statement, revaluing persons of the conditional param is true, then we're referencing that variable withing the JSX portion of the code by using {}.
+
+
+
+    let persons = null; //--> new variable
+ 
+    if (this.state.showPersons) { //--conditional statement to check the param
+      persons = (
+        <div>
+          <Person 
+            name={this.state.persons[0].name} 
+            age={this.state.persons[0].age} />
+          <Person 
+            name={this.state.persons[1].name} 
+            age={this.state.persons[1].age}
+            click={this.switchNameHandler.bind(this, 'B!')}
+            changed={this.nameChangedHandler}
+            >
+            My Hobbies: Racing
+          </Person>
+          <Person name={this.state.persons[2].name} age={this.state.persons[2].age}/>
+        </div> 
+      );
+    }
+    return (
+      <div>
+        <p>Hi, I'm a React App</p>
+        <button 
+          style={style}
+          onClick={() => this.togglePersonsHandler('Bren!')}>Switch Name</button>
+        {persons}   // --> this is the variable reference from above
+      </div>
+    );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
