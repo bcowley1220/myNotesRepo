@@ -198,7 +198,7 @@ Visibility Functionality Within React Method 1:
     }
 
 Visibility Functionality Within React Method 2:
-  - This is the preferred method to do conditional visibility! ***********
+  - This is the preferred method to do conditional visibility! #important
   - Above the return method but inside of the render function, we'll put in the following code.
   - We are declaring a new variable, then writing a conditional statement, revaluing persons of the conditional param is true, then we're referencing that variable withing the JSX portion of the code by using {}.
 
@@ -234,13 +234,66 @@ Visibility Functionality Within React Method 2:
       </div>
     );
 
+Dynamic Rendering Of JSX:
+  - For example in Angular, we'd use a ng-for loop to render new elements onto a page... we can't do that in React.
+  - We're using the state array to iterate over and use the props of that object to inject information into the JSX element.
+  - This is a common pattern within React for handling lists! #important
+  - 
+  state = {
+    persons: [
+      {name: 'Brendan', age:34 },
+      {name: 'Amy', age: 36},
+      {name: 'Seamus', age: 5}
+    ],
+    otherState: 'some other state',
+    showPersons: false
+  }
+
+  if (this.state.showPersons) {
+      persons = (
+        <div>
+          {this.state.persons.map(person => {
+            return <Person name={person.name} age={person.age} />
+          })}
+        </div> 
+      );
+    }
+
+Easy Way To Get An Index Of Array Using Map:
+  - During the generation of the JSX, there is a second parameter that you can use part of the map function that grabs the index of the array location. 
+  - 
+  if (this.state.showPersons) {
+      persons = (
+        <div>
+          {this.state.persons.map((person, index) => {
+            return <Person name={person.name} age={person.age} click={() => this.deletePersonHandler(index)} />
+          })}
+        </div> 
+      );
+    }
 
 
 
+Best Practices Handling Immutable Object:
+  - Since we don't want to over-write the original variable, we'll make a new one either through using map() or a spread/rest operator.
+  
+  nameChangedHandler = (event, id) => {
 
 
+    const personIndex = this.state.persons.findIndex(p => {
+      return p.id === id
+    });
 
+    const person = {
+      ...this.state.persons[personIndex]
+    } 
 
+    person.name = event.target.value;
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+
+    this.setState( {persons: persons});
+  }
 
 
 
